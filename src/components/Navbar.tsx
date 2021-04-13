@@ -50,6 +50,14 @@ export default function Navbar() {
               </a>
             </NavLink>
           </li>
+          <li className="navbar nav-item">
+            <NavLink href="/pretexting">
+              <a className="nav-link">
+                Pretexting
+              </a>
+            </NavLink>
+          </li>
+
           {
             auth.currentUser ?
               (

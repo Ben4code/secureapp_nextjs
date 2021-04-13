@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 
 import Sidebar from '../components/Sidebar'
-// import AuthRoute from '../components/AuthRoutes'
 import PostItem from '../components/PostItem'
 import AddPost from '../components/AddPost'
 import { ToastContainer, toast } from "react-toastify";
@@ -135,13 +134,12 @@ export default function ExperienceBank({ }) {
 
   return (
     <>
-      {/* <AuthRoute> */}
       <ToastContainer />
       <div className="container">
         <div className="layout">
           <div className="experience">
-            <h3>About Experience Bank</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque numquam eveniet minus, perferendis laboriosam earum itaque obcaecati expedita nulla fuga eligendi sint dolore ut optio non porro vero mollitia dolor aspernatur voluptatem modi hic eius </p>
+            <h3>Experience Bank</h3>
+            <p>The experience bank provides you with the opportunity to share experiences of social engineering attacks and learn from the experiences of others in other to stay aware and ahead of trending ploys of social engineers. </p>
             <br /><br />
             <AddPost handlePost={handlePost} />
             <br /><hr style={{ background: '#3db6eb' }} /><br />
@@ -151,31 +149,6 @@ export default function ExperienceBank({ }) {
           <Sidebar />
         </div>
       </div>
-      {/* </AuthRoute> */}
     </>
   )
 }
-
-
-
-// export const getServerSideProps = async () => {
-//   firebaseClient()
-//   const firestore = firebase.firestore()
-//   const auth = firebase.auth()
-
-//   const ref = firestore.collection('posts')
-
-//   const query = ref.orderBy('createdAt', 'desc').limit(30)
-//   const querySnapshot = await query.get()
-//   const postsArray = querySnapshot?.docs.map(doc => ({
-//     ...doc.data(),
-//     id: doc.id
-//   })) as Post[] | undefined
-
-
-//   return {
-//     props: {
-//       postsArray: JSON.parse(JSON.stringify(postsArray))
-//     }
-//   }
-// }

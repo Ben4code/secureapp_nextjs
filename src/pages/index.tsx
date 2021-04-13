@@ -26,7 +26,7 @@ export default function Home(): JSX.Element {
                 <div className="block">
                   <div className="block-text">
                     <h4>Learn all about Pretexting</h4>
-                    <p>We have prepared a beginner friendly introdution to Pretexting highlighting its dangers and opportunities when implemented correctly. </p>
+                    <p> A beginner friendly insight on the Pretexting attack flow, highlighting behaviours exploited by a social engineer. </p>
                     <Link href='/pretexting'>
                       <a className="btn">
                         Understanding Pretexting
@@ -43,11 +43,6 @@ export default function Home(): JSX.Element {
                     <a href='https://phishingquiz.withgoogle.com/' target="blank" rel="noreferrer" className="btn">Take Phishing Assessment</a>
                   </div>
                 </div>
-
-                {/* <div className="content__buttons">
-                  <Link to='/experience-bank' className="btn">Experience bank</Link>
-                </div>
-                <a href='https://phishingquiz.withgoogle.com/' target="blank" rel="noreferrer" className="btn">Take Phishing Assessment</a> */}
               </div>
             </div>
           </div>

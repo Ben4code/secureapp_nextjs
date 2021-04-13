@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 
 import { AuthContext } from '../Context/AuthContext'
-import { fetchNewsApi, NewsItem } from '../services/newsAPI'
+import { NewsItem } from '../services/newsAPI'
 
 
 export default function Sidebar() {

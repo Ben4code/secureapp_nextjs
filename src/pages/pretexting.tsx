@@ -8,8 +8,6 @@ export default function Pretexting() {
       <div className="layout">
         <div className="pretexting">
           <div className="">
-
-
             <h3>Understanding Pretexting</h3>
             <p>There are different techniques used by social engineers to exploit the psychology of their targets. Pretexting is one of the most popular of them.</p>
             <p>Pretexting, just like phishing, is a scam that is aimed at manipulating targeted individual by pretending to be a legitimate to trick the target into giving away data that they ordinarily would not expose. In the case of pretexting, the social engineer creates a fake but convincing scenario know as the pretext. The pretext is designed after a social engineer had gathered information enough to make educated guess on the target, hence, the ability to make a pretext that can excite the target. This form of attack is performed via emails, text messages, phone calls, and face to face.</p>
@@ -74,6 +72,8 @@ export default function Pretexting() {
 
           <img src={`/Picture3.png`} alt="pretexting image 3" />
           <span style={{ fontStyle: 'italic' }}>Fig. 3	Social Engineering Attack Detection Model</span>
+
+          <span>Footnote: This entire work is based on the main body of the dissertation report.</span>
         </div>
         <Sidebar />
       </div>
