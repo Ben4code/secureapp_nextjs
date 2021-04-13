@@ -18,7 +18,7 @@ export default function Sidebar() {
         })
       }
     }
-    // getNews();
+    getNews();
     
     // eslint-disable-next-line
   }, [])
