@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, { useEffect } from 'react'
 
 import Sidebar from '../components/Sidebar'
-import AuthRoute from '../components/AuthRoutes'
+// import AuthRoute from '../components/AuthRoutes'
 import PostItem from '../components/PostItem'
 import AddPost from '../components/AddPost'
 import { ToastContainer, toast } from "react-toastify";
@@ -11,8 +11,9 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import firebaseClient from '../firebase/firebaseClient'
-
-import {useCollection} from 'react-firebase-hooks/firestore'
+import { useRouter } from "next/router";
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { Router } from 'next/router';
 
 
 toast.configure();
@@ -52,16 +53,27 @@ export interface PostItemProps {
   }
 }
 
-export default function ExperienceBank({  }) {
+export default function ExperienceBank({ }) {
   firebaseClient()
   const firestore = firebase.firestore()
   const auth = firebase.auth()
+
+  const router = useRouter();
   
+  useEffect(() => {
+    const checkAuth = () => {
+      if (!auth.currentUser) {
+        return router.push('/')
+      }
+    }
+    checkAuth()
+  }, [])
+
   const ref = firestore.collection('posts')
-  
+
   const query = ref.orderBy('createdAt', 'desc').limit(30)
   const [querySnapshot] = useCollection(query)
-  const postsArray = querySnapshot?.docs.map(doc=> ({
+  const postsArray = querySnapshot?.docs.map(doc => ({
     ...doc.data(),
     id: doc.id
   })) as Post[] | undefined
@@ -99,9 +111,9 @@ export default function ExperienceBank({  }) {
   }
 
   const handleLike = async (postId: string, likeCount: number) => {
-    
+
     const likesQuerySnapshot = await firestore.collection('posts').doc(postId).get()
-    
+
     const { likesCount, userIds } = likesQuerySnapshot.data()?.likes
     if (userIds.includes(auth.currentUser?.uid)) {
       userIds.splice(userIds.indexOf(auth.currentUser?.uid), 1)
@@ -121,26 +133,24 @@ export default function ExperienceBank({  }) {
     })
   }
 
-
-
   return (
     <>
       {/* <AuthRoute> */}
-        <ToastContainer />
-        <div className="container">
-          <div className="layout">
-            <div className="experience">
-              <h3>About Experience Bank</h3>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque numquam eveniet minus, perferendis laboriosam earum itaque obcaecati expedita nulla fuga eligendi sint dolore ut optio non porro vero mollitia dolor aspernatur voluptatem modi hic eius </p>
-              <br /><br />
-              <AddPost handlePost={handlePost} />
-              <br /><hr style={{ background: '#3db6eb' }} /><br />
-              {
-                !postsArray ? (<p>Loading...</p>) : getPosts(postsArray).map((post: PostItemProps, index) => <PostItem key={index} post={post} handleLike={handleLike} />)}
-            </div>
-            <Sidebar />
+      <ToastContainer />
+      <div className="container">
+        <div className="layout">
+          <div className="experience">
+            <h3>About Experience Bank</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque numquam eveniet minus, perferendis laboriosam earum itaque obcaecati expedita nulla fuga eligendi sint dolore ut optio non porro vero mollitia dolor aspernatur voluptatem modi hic eius </p>
+            <br /><br />
+            <AddPost handlePost={handlePost} />
+            <br /><hr style={{ background: '#3db6eb' }} /><br />
+            {
+              !postsArray ? (<p>Loading...</p>) : getPosts(postsArray).map((post: PostItemProps, index) => <PostItem key={index} post={post} handleLike={handleLike} />)}
           </div>
+          <Sidebar />
         </div>
+      </div>
       {/* </AuthRoute> */}
     </>
   )

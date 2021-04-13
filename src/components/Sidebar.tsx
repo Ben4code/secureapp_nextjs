@@ -6,11 +6,11 @@ import { fetchNewsApi, NewsItem } from '../services/newsAPI'
 
 export default function Sidebar() {
   const { state, dispatch } = useContext(AuthContext)
-
+  
   useEffect(() => {
-
     const getNews = async() => {
-      const newsRespose = await fetchNewsApi()
+      const newsData = await fetch("/api/hello")
+      const newsRespose = await newsData.json()
       if(newsRespose.articles){
         dispatch({
           type: 'FETCH_NEWS',
@@ -50,3 +50,19 @@ export default function Sidebar() {
     </div>
   )
 }
+
+
+// export const getServerSideProps = async () => {
+//   const newsRespose = await fetch("http://localhost:3000/api/hello", {
+//     method: 'GET'
+//   });
+  
+//   // const response = await fetch(`https://newsapi.org/v2/everything?q=cyber%20security&sortBy=popularity&pageSize=10&apiKey=e0e8226841c34783806528760fae44c7`)
+
+//   // const newsRespose = await response.json()
+
+//   console.log(newsRespose)
+//   return {
+//     props: { newsRespose }
+//   };
+// };
