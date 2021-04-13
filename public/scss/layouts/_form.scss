@@ -1,0 +1,42 @@
+.signup{
+  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.form{
+  display: flex;
+  width: 40%;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5rem 4.5rem;
+  border-radius: 3rem;
+  border: $primary solid .3rem;
+  box-shadow: 8px 8px 16px 0 rgba(0, 0, 0, 0.25),
+    -2px -2px 2px 0 rgba(255, 255, 255, 0.3);
+
+  & input, & textarea{
+    border: 1px solid $primary;
+    border-radius: 3rem;
+    padding: 1rem .3rem 1rem 1.8rem;
+    outline: none;
+    width: 100%;
+  }
+
+  & .input-group{
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+
+    label{
+      margin-left: 1.6rem;
+      color: $primary;
+      margin-bottom: .3rem;
+    }
+  }
+
+}

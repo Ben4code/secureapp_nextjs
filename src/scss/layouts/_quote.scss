@@ -1,0 +1,16 @@
+.quotes{
+ 
+  &__display{
+    border-radius: 10px;
+    height: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 3rem;
+    text-align: center;
+    line-height: 2.9rem;
+    margin: 0 0 10rem 0;
+    width: 75rem;
+  }
+}
