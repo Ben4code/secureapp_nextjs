@@ -7,7 +7,7 @@ import { FaThumbsUp } from 'react-icons/fa'
 
 export default function Post({ post, handleLike }: {
   post: PostItemProps,
-  handleLike: (id: string, likeCount: number) => void
+  handleLike: (postId: string, likeCount: number) => void
 }): JSX.Element {
 
   return (

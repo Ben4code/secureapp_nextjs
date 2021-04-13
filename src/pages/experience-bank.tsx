@@ -1,5 +1,4 @@
-import React from 'react'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import React, {useState} from 'react'
 
 import Sidebar from '../components/Sidebar'
 import AuthRoute from '../components/AuthRoutes'
@@ -8,11 +7,13 @@ import AddPost from '../components/AddPost'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as UUID } from 'uuid'
-import { useRouter } from "next/router";
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import firebaseClient from '../firebase/firebaseClient'
+
+import {useCollection} from 'react-firebase-hooks/firestore'
+
 
 toast.configure();
 
@@ -51,17 +52,16 @@ export interface PostItemProps {
   }
 }
 
-export default function ExperienceBank() {
+export default function ExperienceBank({  }) {
   firebaseClient()
   const firestore = firebase.firestore()
   const auth = firebase.auth()
-
-  const router = useRouter();
+  
   const ref = firestore.collection('posts')
-
+  
   const query = ref.orderBy('createdAt', 'desc').limit(30)
   const [querySnapshot] = useCollection(query)
-  const postsArray = querySnapshot?.docs.map(doc => ({
+  const postsArray = querySnapshot?.docs.map(doc=> ({
     ...doc.data(),
     id: doc.id
   })) as Post[] | undefined
@@ -99,10 +99,10 @@ export default function ExperienceBank() {
   }
 
   const handleLike = async (postId: string, likeCount: number) => {
-
+    
     const likesQuerySnapshot = await firestore.collection('posts').doc(postId).get()
+    
     const { likesCount, userIds } = likesQuerySnapshot.data()?.likes
-
     if (userIds.includes(auth.currentUser?.uid)) {
       userIds.splice(userIds.indexOf(auth.currentUser?.uid), 1)
       return firestore.collection('posts').doc(postId).update({
@@ -124,21 +124,48 @@ export default function ExperienceBank() {
 
 
   return (
-    <AuthRoute>
-      <ToastContainer />
-      <div className="container">
-        <div className="layout">
-          <div className="experience">
-            <h3>About Experience Bank</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque numquam eveniet minus, perferendis laboriosam earum itaque obcaecati expedita nulla fuga eligendi sint dolore ut optio non porro vero mollitia dolor aspernatur voluptatem modi hic eius </p>
-            <br /><br />
-            <AddPost handlePost={handlePost} />
-            <br /><hr style={{ background: '#3db6eb' }} /><br />
-            {!postsArray ? (<p>Loading...</p>) : getPosts(postsArray).map((post: PostItemProps, index) => <PostItem key={index} post={post} handleLike={handleLike} />)}
+    <>
+      {/* <AuthRoute> */}
+        <ToastContainer />
+        <div className="container">
+          <div className="layout">
+            <div className="experience">
+              <h3>About Experience Bank</h3>
+              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque numquam eveniet minus, perferendis laboriosam earum itaque obcaecati expedita nulla fuga eligendi sint dolore ut optio non porro vero mollitia dolor aspernatur voluptatem modi hic eius </p>
+              <br /><br />
+              <AddPost handlePost={handlePost} />
+              <br /><hr style={{ background: '#3db6eb' }} /><br />
+              {
+                !postsArray ? (<p>Loading...</p>) : getPosts(postsArray).map((post: PostItemProps, index) => <PostItem key={index} post={post} handleLike={handleLike} />)}
+            </div>
+            <Sidebar />
           </div>
-          <Sidebar />
         </div>
-      </div>
-    </AuthRoute>
+      {/* </AuthRoute> */}
+    </>
   )
 }
+
+
+
+// export const getServerSideProps = async () => {
+//   firebaseClient()
+//   const firestore = firebase.firestore()
+//   const auth = firebase.auth()
+
+//   const ref = firestore.collection('posts')
+
+//   const query = ref.orderBy('createdAt', 'desc').limit(30)
+//   const querySnapshot = await query.get()
+//   const postsArray = querySnapshot?.docs.map(doc => ({
+//     ...doc.data(),
+//     id: doc.id
+//   })) as Post[] | undefined
+
+
+//   return {
+//     props: {
+//       postsArray: JSON.parse(JSON.stringify(postsArray))
+//     }
+//   }
+// }

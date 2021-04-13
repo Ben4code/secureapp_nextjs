@@ -12,13 +12,11 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
   const { children } = props;
   const auth = firebase.auth()
 
-  if(!auth.currentUser){
-    router.push('/login')
-  }
-  
   return (
     <div>
-      {children}
+      {
+        !auth.currentUser ? router.push('/login') : ({children})
+      }
     </div>
   )
 }
