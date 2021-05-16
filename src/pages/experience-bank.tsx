@@ -61,9 +61,11 @@ export default function ExperienceBank({ }) {
   
   useEffect(() => {
     const checkAuth = () => {
-      if (!auth.currentUser) {
-        return router.push('/')
-      }
+      auth.onAuthStateChanged((user)=> {
+        if(!user){
+          return router.push('/')
+        }
+      })
     }
     checkAuth()
   }, [])

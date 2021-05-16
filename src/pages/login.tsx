@@ -27,7 +27,6 @@ export default function Login() {
     setAuthenticating(true)
     auth.signInWithEmailAndPassword(email, password)
     .then(result => {
-      console.log(result)
       dispatch({
         type: 'FETCH_AUTH_USER',
         payload: true
